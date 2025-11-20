@@ -115,6 +115,7 @@
     let checkboxCount = 0;
     if (item.freq.includes("wöchentlich")) checkboxCount = 4;
     else if (item.freq.includes("alle 2 Wochen")) checkboxCount = 2;
+    else if (item.freq.includes("alle 2-4 Wochen")) checkboxCount = 2;
     else if (item.freq.includes("alle 4 Wochen")) checkboxCount = 1;
 
     // Checkboxen HTML erzeugen
@@ -140,3 +141,4 @@
 </script>
 </body>
 </html>
+
