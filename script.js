@@ -23,7 +23,7 @@ const tasks = [
   { id: 19, task: "Backofen reinigen", freq: "alle 4 Wochen", desc: "Innenraum wischen", boxes: 1 },
 
   { id: 21, task: "Kühlschrank komplett reinigen", freq: "alle 3 Monate", desc: "Fächer & Dichtungen", boxes: 1 },
-  { id: 22, task: "Fugen reinigen", freq: "1× pro Jahr", desc: "Schimmelvorsorge", boxes: 1 }
+  { id: 22, task: "Fugen reinigen", freq: "1× pro Jahr", desc: "Schimmelvorsorge abcde", boxes: 1 }
 ];
 
 // DOM Elemente
