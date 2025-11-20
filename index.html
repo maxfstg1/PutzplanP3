@@ -5,14 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PutzplanP3</title>
 
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/putzplanp3/manifest.json" />
-
-  <!-- iOS Standalone Mode -->
+  <link rel="manifest" href="manifest.json" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="PutzplanP3" />
-  <link rel="apple-touch-icon" href="/putzplanp3/icon.png" />
+  <link rel="apple-touch-icon" href="icon.png" />
 
   <style>
     body {
@@ -27,10 +24,11 @@
       font-size: 2rem;
       margin-bottom: 0.5rem;
     }
-    #month-year {
-      font-size: 1rem;
+    #monthDisplay {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      font-weight: bold;
       color: #3d7a3d;
-      margin-bottom: 10px;
     }
     .task-grid {
       display: grid;
@@ -61,99 +59,27 @@
       font-size: 0.85rem;
       line-height: 1.35;
     }
-    .checkboxes input[type="checkbox"] {
-      margin-right: 5px;
+    .checkboxes {
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
   <h1>🧽 PutzplanP3</h1>
-  <p id="month-year"></p>
-  <p>Höhle der Löwen</p>
+  <div id="monthDisplay"></div>
 
   <div class="task-grid" id="tasks"></div>
 
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js"></script>
+
+  <script src="firebase.js"></script>
+  <script src="script.js"></script>
+
   <script>
-    // Dynamischer Monat & Jahr
-    const monthYearElem = document.getElementById("month-year");
-    const now = new Date();
-    const currentMonth = now.getMonth(); // 0-11
-    const currentYear = now.getFullYear();
-    monthYearElem.textContent = now.toLocaleDateString("de-DE", { month: "long", year: "numeric" });
-
-    // LocalStorage-Key für aktuellen Monat
-    const storageKey = `putzplan_${currentYear}_${currentMonth}`;
-
-    const tasks = [
-      { task: "Mülleimer leeren", freq: "bei Bedarf", desc: "Restmüll, Bio; Gelber Sack nach Bedarf" },
-      { task: "Pflanzen gießen", freq: "bei Bedarf", desc: "Alle Zimmerpflanzen checken" },
-      { task: "Duschkopf & Wasserhahn entkalken", freq: "bei Bedarf", desc: "Essig/Entkalker verwenden" },
-      { task: "Arbeitsflächen Küche reinigen", freq: "nach Benutzung", desc: "Arbeitsplatten & Fliesenübergänge" },
-      { task: "Staubsaugen", freq: "2× wöchentlich", desc: "Wohnzimmer, Flur, Küche, Bad" },
-      { task: "Toilette putzen", freq: "wöchentlich", desc: "Sitz, Rand, Schüssel, außen" },
-      { task: "Waschbecken Bad reinigen", freq: "wöchentlich", desc: "Armaturen, Ablage, Schränke" },
-      { task: "Küche: Herd & Backblech", freq: "wöchentlich", desc: "Kochfeld reinigen, Backblech falls nötig" },
-      { task: "Spüle reinigen", freq: "wöchentlich", desc: "Kurz auswischen, trocknen" },
-      { task: "Regale & Oberflächen entstauben", freq: "wöchentlich", desc: "Auch Sockelleisten" },
-      { task: "Spiegel & Glasflächen", freq: "wöchentlich", desc: "Badezimmer- & Flurspiegel" },
-      { task: "Kühlschrankgriffe reinigen", freq: "wöchentlich", desc: "Griffe & häufig berührte Bereiche" },
-      { task: "Böden wischen", freq: "alle 2 Wochen", desc: "Feuchtes Wischen Stein/Fliese" },
-      { task: "Duschwand entkalken", freq: "alle 2 Wochen", desc: "Mit Entkalker behandeln" },
-      { task: "Duschablauf reinigen", freq: "alle 2–4 Wochen", desc: "Haare & Gerüche entfernen" },
-      { task: "Fensterrähmen abwischen", freq: "alle 2–4 Wochen", desc: "Rahmen & Fensterbank" },
-      { task: "Kaffeemaschine entkalken", freq: "alle 4 Wochen", desc: "Entkalker unter der Spüle" },
-      { task: "Kühlschrank sortieren", freq: "alle 4 Wochen", desc: "Abgelaufene Lebensmittel raus" },
-      { task: "Backofen reinigen", freq: "alle 4 Wochen", desc: "Innenraum wischen" },
-      { task: "Türklinken & Lichtschalter reinigen", freq: "alle 4 Wochen", desc: "Kurz desinfizieren" },
-      { task: "Kühlschrank komplett reinigen", freq: "alle 3 Monate", desc: "Fächer & Dichtungen" },
-      { task: "Fugen reinigen", freq: "1× pro Jahr", desc: "Schimmelvorsorge" }
-    ];
-
-    const container = document.getElementById("tasks");
-
-    // Gespeicherte Checkboxen laden
-    let saved = JSON.parse(localStorage.getItem(storageKey)) || {};
-
-    tasks.forEach((item, taskIndex) => {
-      const card = document.createElement("div");
-      card.className = "card";
-
-      // Anzahl Checkboxen bestimmen
-      let checkboxCount = 0;
-      if (item.freq.includes("wöchentlich")) checkboxCount = 4;
-      else if (item.freq.includes("alle 2 Wochen")) checkboxCount = 2;
-      else if (item.freq.includes("alle 4 Wochen")) checkboxCount = 1;
-
-      let checkboxesHTML = "";
-      for (let i = 0; i < checkboxCount; i++) {
-        const id = `task${taskIndex}_cb${i}`;
-        const checked = saved[id] ? "checked" : "";
-        checkboxesHTML += `<input type="checkbox" id="${id}" ${checked} />`;
-      }
-
-      card.innerHTML = `
-        <h2>${item.task}</h2>
-        <div class="freq">${item.freq}</div>
-        <div class="desc">${item.desc}</div>
-        <div class="checkboxes">${checkboxesHTML}</div>
-      `;
-      container.appendChild(card);
-
-      // EventListener speichern beim Ändern
-      for (let i = 0; i < checkboxCount; i++) {
-        const cb = document.getElementById(`task${taskIndex}_cb${i}`);
-        cb.addEventListener("change", () => {
-          saved[`task${taskIndex}_cb${i}`] = cb.checked;
-          localStorage.setItem(storageKey, JSON.stringify(saved));
-        });
-      }
-    });
-
-    // Service Worker registrieren
-    // if ("serviceWorker" in navigator) {
-    //  navigator.serviceWorker.register("/putzplanp3/service-worker.js");
-    // }
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
   </script>
 </body>
 </html>
-
