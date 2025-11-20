@@ -77,8 +77,12 @@
     // Dynamischer Monat & Jahr
     const monthYearElem = document.getElementById("month-year");
     const now = new Date();
-    const options = { month: "long", year: "numeric" };
-    monthYearElem.textContent = now.toLocaleDateString("de-DE", options);
+    const currentMonth = now.getMonth(); // 0-11
+    const currentYear = now.getFullYear();
+    monthYearElem.textContent = now.toLocaleDateString("de-DE", { month: "long", year: "numeric" });
+
+    // LocalStorage-Key für aktuellen Monat
+    const storageKey = `putzplan_${currentYear}_${currentMonth}`;
 
     const tasks = [
       { task: "Mülleimer leeren", freq: "bei Bedarf", desc: "Restmüll, Bio; Gelber Sack nach Bedarf" },
@@ -107,7 +111,10 @@
 
     const container = document.getElementById("tasks");
 
-    tasks.forEach(item => {
+    // Gespeicherte Checkboxen laden
+    let saved = JSON.parse(localStorage.getItem(storageKey)) || {};
+
+    tasks.forEach((item, taskIndex) => {
       const card = document.createElement("div");
       card.className = "card";
 
@@ -119,7 +126,9 @@
 
       let checkboxesHTML = "";
       for (let i = 0; i < checkboxCount; i++) {
-        checkboxesHTML += "<input type='checkbox' />";
+        const id = `task${taskIndex}_cb${i}`;
+        const checked = saved[id] ? "checked" : "";
+        checkboxesHTML += `<input type="checkbox" id="${id}" ${checked} />`;
       }
 
       card.innerHTML = `
@@ -128,8 +137,16 @@
         <div class="desc">${item.desc}</div>
         <div class="checkboxes">${checkboxesHTML}</div>
       `;
-
       container.appendChild(card);
+
+      // EventListener speichern beim Ändern
+      for (let i = 0; i < checkboxCount; i++) {
+        const cb = document.getElementById(`task${taskIndex}_cb${i}`);
+        cb.addEventListener("change", () => {
+          saved[`task${taskIndex}_cb${i}`] = cb.checked;
+          localStorage.setItem(storageKey, JSON.stringify(saved));
+        });
+      }
     });
 
     // Service Worker registrieren
