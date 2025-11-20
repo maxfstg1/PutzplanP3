@@ -12,18 +12,15 @@ const tasks = [
   { id: 9, task: "Spüle reinigen", freq: "wöchentlich", desc: "Kurz auswischen, trocknen", boxes: 4 },
   { id: 10, task: "Regale & Oberflächen entstauben", freq: "wöchentlich", desc: "Auch Sockelleisten", boxes: 4 },
   { id: 11, task: "Spiegel & Glasflächen", freq: "wöchentlich", desc: "Badezimmer- & Flurspiegel", boxes: 4 },
-  { id: 12, task: "Kühlschrankgriffe reinigen", freq: "wöchentlich", desc: "Griffe & häufig berührte Bereiche", boxes: 4 },
-
   { id: 13, task: "Böden wischen", freq: "alle 2 Wochen", desc: "Feuchtes Wischen Stein/Fliese", boxes: 2 },
   { id: 14, task: "Duschwand entkalken", freq: "alle 2 Wochen", desc: "Mit Entkalker behandeln", boxes: 2 },
 
-  { id: 15, task: "Duschablauf reinigen", freq: "alle 2–4 Wochen", desc: "Haare & Gerüche entfernen", boxes: 2 },
+  { id: 15, task: "Duschablauf reinigen", freq: "alle 2–4 Wochen", desc: "Haare etc. entfernen", boxes: 2 },
   { id: 16, task: "Fensterrähmen abwischen", freq: "alle 2–4 Wochen", desc: "Rahmen & Fensterbank", boxes: 2 },
 
   { id: 17, task: "Kaffeemaschine entkalken", freq: "alle 4 Wochen", desc: "Entkalker unter der Spüle", boxes: 1 },
   { id: 18, task: "Kühlschrank sortieren", freq: "alle 4 Wochen", desc: "Abgelaufene Lebensmittel raus", boxes: 1 },
   { id: 19, task: "Backofen reinigen", freq: "alle 4 Wochen", desc: "Innenraum wischen", boxes: 1 },
-  { id: 20, task: "Türklinken & Lichtschalter reinigen", freq: "alle 4 Wochen", desc: "Kurz desinfizieren", boxes: 1 },
 
   { id: 21, task: "Kühlschrank komplett reinigen", freq: "alle 3 Monate", desc: "Fächer & Dichtungen", boxes: 1 },
   { id: 22, task: "Fugen reinigen", freq: "1× pro Jahr", desc: "Schimmelvorsorge", boxes: 1 }
