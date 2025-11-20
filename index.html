@@ -153,6 +153,7 @@
     else if (item.freq.includes("alle 2 Wochen")) checkboxCount = 2;
     else if (item.freq.includes("alle 4 Wochen")) checkboxCount = 1;
     else if (item.freq.includes("2x wöchentlich")) checkboxCount = 8;
+    else if (item.freq.includes("alle 2-4 Wochen")) checkboxCount = 2;
 
     let checkboxesHTML = "";
     for (let i = 0; i < checkboxCount; i++) {
@@ -183,6 +184,7 @@
 </script>
 </body>
 </html>
+
 
 
 
