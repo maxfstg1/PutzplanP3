@@ -1,7 +1,7 @@
 {
   "name": "PutzplanP3",
   "short_name": "Putzplan",
-  "start_url": "./index.html",
+  "start_url": "./putzplanp3/index.html",
   "display": "standalone",
   "background_color": "#f7f7f4",
   "theme_color": "#2e5c2e",
@@ -18,3 +18,4 @@
     }
   ]
 }
+
