@@ -6,13 +6,13 @@
   <title>PutzplanP3</title>
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.json" />
+  <link rel="manifest" href="/putzplanp3/manifest.json" />
 
   <!-- iOS Standalone Mode -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="PutzplanP3" />
-  <link rel="apple-touch-icon" href="icon.png" />
+  <link rel="apple-touch-icon" href="/putzplanp3/icon.png" />
 
   <style>
     body {
@@ -69,76 +69,73 @@
 <body>
   <h1>🧽 PutzplanP3</h1>
   <p id="month-year"></p>
-  <p>Minimalistisch, sauber & grün – perfekt für eure Zweier-WG.</p>
+  <p>Höhle der Löwen</p>
 
   <div class="task-grid" id="tasks"></div>
 
- <script>
-  // Dynamisch Monat und Jahr setzen
-  const monthYearElem = document.getElementById("month-year");
-  const now = new Date();
-  const options = { month: "long", year: "numeric" };
-  monthYearElem.textContent = now.toLocaleDateString("de-DE", options);
+  <script>
+    // Dynamischer Monat & Jahr
+    const monthYearElem = document.getElementById("month-year");
+    const now = new Date();
+    const options = { month: "long", year: "numeric" };
+    monthYearElem.textContent = now.toLocaleDateString("de-DE", options);
 
-  const tasks = [
-    { task: "Mülleimer leeren", freq: "bei Bedarf", desc: "Restmüll, Bio; Gelber Sack nach Bedarf" },
-    { task: "Pflanzen gießen", freq: "bei Bedarf", desc: "Alle Zimmerpflanzen checken" },
-    { task: "Duschkopf & Wasserhahn entkalken", freq: "bei Bedarf", desc: "Essig/Entkalker verwenden" },
-    { task: "Arbeitsflächen Küche reinigen", freq: "nach Benutzung", desc: "Arbeitsplatten & Fliesenübergänge" },
-    { task: "Staubsaugen", freq: "2× wöchentlich", desc: "Wohnzimmer, Flur, Küche, Bad" },
-    { task: "Toilette putzen", freq: "wöchentlich", desc: "Sitz, Rand, Schüssel, außen" },
-    { task: "Waschbecken Bad reinigen", freq: "wöchentlich", desc: "Armaturen, Ablage, Schränke" },
-    { task: "Küche: Herd & Backblech", freq: "wöchentlich", desc: "Kochfeld reinigen, Backblech falls nötig" },
-    { task: "Spüle reinigen", freq: "wöchentlich", desc: "Kurz auswischen, trocknen" },
-    { task: "Regale & Oberflächen entstauben", freq: "wöchentlich", desc: "Auch Sockelleisten" },
-    { task: "Spiegel & Glasflächen", freq: "wöchentlich", desc: "Badezimmer- & Flurspiegel" },
-    { task: "Kühlschrankgriffe reinigen", freq: "wöchentlich", desc: "Griffe & häufig berührte Bereiche" },
-    { task: "Böden wischen", freq: "alle 2 Wochen", desc: "Feuchtes Wischen Stein/Fliese" },
-    { task: "Duschwand entkalken", freq: "alle 2 Wochen", desc: "Mit Entkalker behandeln" },
-    { task: "Duschablauf reinigen", freq: "alle 2–4 Wochen", desc: "Haare & Gerüche entfernen" },
-    { task: "Fensterrähmen abwischen", freq: "alle 2–4 Wochen", desc: "Rahmen & Fensterbank" },
-    { task: "Kaffeemaschine entkalken", freq: "alle 4 Wochen", desc: "Entkalker unter der Spüle" },
-    { task: "Kühlschrank sortieren", freq: "alle 4 Wochen", desc: "Abgelaufene Lebensmittel raus" },
-    { task: "Backofen reinigen", freq: "alle 4 Wochen", desc: "Innenraum wischen" },
-    { task: "Türklinken & Lichtschalter reinigen", freq: "alle 4 Wochen", desc: "Kurz desinfizieren" },
-    { task: "Kühlschrank komplett reinigen", freq: "alle 3 Monate", desc: "Fächer & Dichtungen" },
-    { task: "Fugen reinigen", freq: "1× pro Jahr", desc: "Schimmelvorsorge" }
-  ];
+    const tasks = [
+      { task: "Mülleimer leeren", freq: "bei Bedarf", desc: "Restmüll, Bio; Gelber Sack nach Bedarf" },
+      { task: "Pflanzen gießen", freq: "bei Bedarf", desc: "Alle Zimmerpflanzen checken" },
+      { task: "Duschkopf & Wasserhahn entkalken", freq: "bei Bedarf", desc: "Essig/Entkalker verwenden" },
+      { task: "Arbeitsflächen Küche reinigen", freq: "nach Benutzung", desc: "Arbeitsplatten & Fliesenübergänge" },
+      { task: "Staubsaugen", freq: "2× wöchentlich", desc: "Wohnzimmer, Flur, Küche, Bad" },
+      { task: "Toilette putzen", freq: "wöchentlich", desc: "Sitz, Rand, Schüssel, außen" },
+      { task: "Waschbecken Bad reinigen", freq: "wöchentlich", desc: "Armaturen, Ablage, Schränke" },
+      { task: "Küche: Herd & Backblech", freq: "wöchentlich", desc: "Kochfeld reinigen, Backblech falls nötig" },
+      { task: "Spüle reinigen", freq: "wöchentlich", desc: "Kurz auswischen, trocknen" },
+      { task: "Regale & Oberflächen entstauben", freq: "wöchentlich", desc: "Auch Sockelleisten" },
+      { task: "Spiegel & Glasflächen", freq: "wöchentlich", desc: "Badezimmer- & Flurspiegel" },
+      { task: "Kühlschrankgriffe reinigen", freq: "wöchentlich", desc: "Griffe & häufig berührte Bereiche" },
+      { task: "Böden wischen", freq: "alle 2 Wochen", desc: "Feuchtes Wischen Stein/Fliese" },
+      { task: "Duschwand entkalken", freq: "alle 2 Wochen", desc: "Mit Entkalker behandeln" },
+      { task: "Duschablauf reinigen", freq: "alle 2–4 Wochen", desc: "Haare & Gerüche entfernen" },
+      { task: "Fensterrähmen abwischen", freq: "alle 2–4 Wochen", desc: "Rahmen & Fensterbank" },
+      { task: "Kaffeemaschine entkalken", freq: "alle 4 Wochen", desc: "Entkalker unter der Spüle" },
+      { task: "Kühlschrank sortieren", freq: "alle 4 Wochen", desc: "Abgelaufene Lebensmittel raus" },
+      { task: "Backofen reinigen", freq: "alle 4 Wochen", desc: "Innenraum wischen" },
+      { task: "Türklinken & Lichtschalter reinigen", freq: "alle 4 Wochen", desc: "Kurz desinfizieren" },
+      { task: "Kühlschrank komplett reinigen", freq: "alle 3 Monate", desc: "Fächer & Dichtungen" },
+      { task: "Fugen reinigen", freq: "1× pro Jahr", desc: "Schimmelvorsorge" }
+    ];
 
-  const container = document.getElementById("tasks");
+    const container = document.getElementById("tasks");
 
-  tasks.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "card";
+    tasks.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "card";
 
-    // Anzahl der Checkboxen bestimmen
-    let checkboxCount = 0;
-    if (item.freq.includes("wöchentlich")) checkboxCount = 4;
-    else if (item.freq.includes("alle 2 Wochen")) checkboxCount = 2;
-    else if (item.freq.includes("alle 2-4 Wochen")) checkboxCount = 2;
-    else if (item.freq.includes("alle 4 Wochen")) checkboxCount = 1;
+      // Anzahl Checkboxen bestimmen
+      let checkboxCount = 0;
+      if (item.freq.includes("wöchentlich")) checkboxCount = 4;
+      else if (item.freq.includes("alle 2 Wochen")) checkboxCount = 2;
+      else if (item.freq.includes("alle 4 Wochen")) checkboxCount = 1;
 
-    // Checkboxen HTML erzeugen
-    let checkboxesHTML = "";
-    for (let i = 0; i < checkboxCount; i++) {
-      checkboxesHTML += "<input type='checkbox' />";
+      let checkboxesHTML = "";
+      for (let i = 0; i < checkboxCount; i++) {
+        checkboxesHTML += "<input type='checkbox' />";
+      }
+
+      card.innerHTML = `
+        <h2>${item.task}</h2>
+        <div class="freq">${item.freq}</div>
+        <div class="desc">${item.desc}</div>
+        <div class="checkboxes">${checkboxesHTML}</div>
+      `;
+
+      container.appendChild(card);
+    });
+
+    // Service Worker registrieren
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/putzplanp3/service-worker.js");
     }
-
-    card.innerHTML = `
-      <h2>${item.task}</h2>
-      <div class="freq">${item.freq}</div>
-      <div class="desc">${item.desc}</div>
-      <div class="checkboxes">${checkboxesHTML}</div>
-    `;
-
-    container.appendChild(card);
-  });
-
-  // Service Worker registrieren
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js");
-  }
-</script>
+  </script>
 </body>
 </html>
-
